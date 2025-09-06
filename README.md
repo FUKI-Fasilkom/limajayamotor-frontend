@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Proyek Frontend Limasjayomotor (Next.js)
 
-## Getting Started
+Repository ini berisi kode sumber untuk bagian frontend dari aplikasi Limasjayomotor. Proyek ini dibangun menggunakan **Next.js** dengan **App Router**, distyling dengan **Tailwind CSS**, dan ditulis dalam **TypeScript** untuk memastikan kode yang kuat dan mudah dikelola.
 
-First, run the development server:
+## Prasyarat
 
+Sebelum memulai, pastikan Anda sudah menginstal perangkat lunak berikut di komputer Anda:
+- [Node.js](https://nodejs.org/) (versi 18.17 atau lebih tinggi)
+- Yarn atau npm (npm sudah termasuk dalam instalasi Node.js)
+- [Git](https://git-scm.com/)
+
+## 🚀 Panduan Memulai Cepat
+
+Ikuti langkah-langkah berikut untuk menjalankan proyek ini di lingkungan lokal Anda.
+
+**1. Clone Repository**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone [URL_REPOSITORY_ANDA]
+cd limasjayomotor-frontend
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**2. Instal Dependensi**
+Gunakan npm (atau yarn) untuk menginstal semua paket yang dibutuhkan oleh proyek.
+```bash
+npm install
+```
+*Atau jika Anda menggunakan yarn:*
+```bash
+yarn install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**3. Siapkan Variabel Lingkungan (Environment Variables)**
+Langkah ini sangat penting untuk menghubungkan ke backend.
+Salin file contoh `.env.example` menjadi `.env.local`. File `.env.local` adalah tempat Anda menyimpan semua kunci rahasia dan tidak akan diunggah ke Git.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+cp .env.example .env.local
+```
+Setelah itu, buka file `.env.local` dan isi variabel yang diperlukan.
 
-## Learn More
+**4. Jalankan Server Development**
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+**5. Buka Aplikasi**
+Buka browser Anda dan akses [http://localhost:3000](http://localhost:3000). Anda akan melihat aplikasi berjalan.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📁 Penjelasan Struktur Folder Proyek
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Struktur folder proyek ini dirancang agar mudah diskalakan dan dikelola oleh tim.
 
-## Deploy on Vercel
+```
+.
+├── src/
+│   ├── app/
+│   │   ├── (user)/         # Grup untuk semua halaman PUBLIK (Home, Berita, About Us)
+│   │   │   ├── page.tsx    # Halaman Utama (URL: /)
+│   │   │   ├── layout.tsx  # Layout khusus untuk user (berisi Navbar User)
+│   │   │   └── ...
+│   │   │
+│   │   ├── admin/        # Grup untuk semua halaman ADMIN (Dashboard, Login, CMS)
+│   │   │   ├── page.tsx    # Halaman utama admin (jika ada)
+│   │   │   ├── layout.tsx  # Layout khusus untuk admin (berisi Navbar/Sidebar Admin)
+│   │   │   └── ...
+│   │   │
+│   │   └── layout.tsx      # Root Layout (WAJIB ADA, berisi <html> dan <body>)
+│   │
+│   ├── components/         # Direktori untuk komponen React yang bisa dipakai ulang
+│   │   ├── admin/
+│   │   ├── shared/
+│   │   └── user/
+│   │
+│   └── lib/                # Untuk fungsi bantuan, hooks, atau koneksi API ke Django
+│
+├── public/                 # Untuk aset statis seperti gambar, ikon, dan font
+│
+├── .env.local              # File untuk variabel lingkungan LOKAL (JANGAN DI-COMMIT)
+├── .env.example            # Contoh file variabel lingkungan
+└── ...                     # File konfigurasi lainnya (next.config.mjs, tailwind.config.ts, dll.)
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Penjelasan Penting:**
+- **`src/components`**: Tempatkan semua komponen UI Anda di sini dan kelompokkan berdasarkan fungsinya (admin, user, atau shared/bersama).
+- **`src/lib/api.ts`**: Di sinilah tempat yang tepat untuk menulis semua fungsi `fetch` yang berhubungan dengan backend Django Anda.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📜 Skrip Utama
+
+- `npm run dev`: Menjalankan aplikasi dalam mode development.
+- `npm run build`: Membuat build aplikasi yang siap untuk produksi.
+- `npm run start`: Menjalankan aplikasi dari build produksi.
+
+---
